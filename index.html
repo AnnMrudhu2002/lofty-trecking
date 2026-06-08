@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lofty Trekking</title>
+
+<style>
+/* ---------------- THEME ---------------- */
+:root{
+  --bg1:#020b1a;
+  --bg2:#061a33;
+  --text:#ffffff;
+  --card:rgba(255,255,255,0.06);
+  --accent:#7fd3ff;
+}
+
+.light{
+  --bg1:#eaf6ff;
+  --bg2:#ffffff;
+  --text:#0b1b2b;
+  --card:rgba(0,0,0,0.06);
+  --accent:#0077cc;
+}
+
+/* ---------------- GLOBAL ---------------- */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+  transition:0.3s;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background: linear-gradient(to bottom, var(--bg1), var(--bg2));
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ---------------- SPARKLES ---------------- */
+.stars span{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  animation:float 6s linear infinite;
+  opacity:0.6;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* ---------------- CLOUDS ---------------- */
+.cloud{
+  position:absolute;
+  width:160px;
+  opacity:0.15;
+  animation:moveClouds 25s linear infinite;
+}
+
+@keyframes moveClouds{
+  from{transform:translateX(-200px);}
+  to{transform:translateX(120vw);}
+}
+
+/* ---------------- NAVBAR (NEW) ---------------- */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 25px;
+  background:rgba(0,0,0,0.35);
+  backdrop-filter: blur(12px);
+  z-index:1000;
+}
+
+header h1{
+  color:var(--accent);
+  font-weight:700;
+  text-shadow:0 0 10px rgba(127,211,255,0.5);
+}
+
+/* FIX LIGHT MODE VISIBILITY */
+.light header h1{
+  color:#005a9e;
+  text-shadow:none;
+}
+
+nav a{
+  margin:0 10px;
+  text-decoration:none;
+  color:var(--text);
+  font-size:14px;
+}
+
+nav a:hover{
+  color:var(--accent);
+}
+
+/* ---------------- HERO ---------------- */
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  background:url('1000070795.jpg') center/cover no-repeat;
+}
+
+/* ---------------- SLIDESHOW ---------------- */
+.slideshow{
+  width:100%;
+  height:600px;
+  overflow:hidden;
+  border-radius:20px;
+  position:relative;
+}
+
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  opacity:0;
+  transition:1s;
+}
+
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+/* ---------------- PREMIUM CONTACT UI (ADDED) ---------------- */
+.contact-hero{
+  background: linear-gradient(135deg, rgba(127,211,255,0.15), rgba(0,0,0,0.2));
+  padding:30px;
+  border-radius:20px;
+  backdrop-filter: blur(10px);
+  box-shadow:0 0 20px rgba(127,211,255,0.2);
+}
+
+.contact-box{
+  background: var(--card);
+  padding:25px;
+  border-radius:18px;
+  transition:0.4s;
+  position:relative;
+  overflow:hidden;
+}
+
+.contact-box:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.contact-box a{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 14px;
+  border-radius:20px;
+  background:var(--accent);
+  color:white;
+  text-decoration:none;
+}
+
+/* ---------------- POPUP CARDS (ADDED) ---------------- */
+.popup-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.popup-card{
+  width:320px;
+  background:linear-gradient(135deg,#0b2a4a,#02101f);
+  padding:25px;
+  border-radius:20px;
+  color:white;
+  text-align:center;
+  animation:pop 0.5s ease;
+  box-shadow:0 0 30px rgba(127,211,255,0.3);
+}
+
+@keyframes pop{
+  from{transform:scale(0.5); opacity:0;}
+  to{transform:scale(1); opacity:1;}
+}
+
+.popup-card button{
+  margin-top:15px;
+  padding:8px 15px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  background:var(--accent);
+  color:white;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:rgba(0,0,40,0.55);
+}
+
+.hero-content{
+  position:relative;
+  /* z-index:2; */
+  z-index:3;
+}
+
+.hero h2{
+  font-size:55px;
+  color:#a6e3ff;
+  text-shadow:0 0 20px rgba(0,200,255,0.4);
+}
+
+/* ---------------- BUTTON ---------------- */
+.btn{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  background:var(--accent);
+  color:white;
+}
+
+/* ---------------- SECTIONS ---------------- */
+section{
+  padding:80px 10%;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ---------------- CARDS ---------------- */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+}
+
+/* ---------------- GALLERY ---------------- */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+}
+
+.gallery img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:15px;
+  transition:0.3s;
+}
+
+.gallery img:hover{
+  transform:scale(1.05);
+}
+
+/* ---------------- CONTACT ---------------- */
+.contact{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.box{
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+}
+
+/* ---------------- FOOTER ---------------- */
+footer{
+  text-align:center;
+  padding:20px;
+  background:rgba(0,0,0,0.4);
+}
+/* ---------------- LIVE SPARKLES (ADDED) ---------------- */
+.sparkle{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:0;
+  animation: twinkle 3s infinite ease-in-out;
+  box-shadow:0 0 6px white;
+  z-index:-1; /* IMPORTANT: stays behind website */
+}
+
+@keyframes twinkle{
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
+}
+/* ================= RESPONSIVE DESIGN ================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .hero h2 {
+    font-size: 42px;
+  }
+
+  section {
+    padding: 60px 6%;
+  }
+
+  .slideshow {
+    height: 450px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 768px) {
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  nav a {
+    font-size: 13px;
+  }
+
+  .hero h2 {
+    font-size: 30px;
+    padding: 0 10px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .slideshow {
+    height: 300px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-hero {
+    padding: 15px;
+  }
+
+  .contact-box {
+    padding: 18px;
+  }
+
+  section {
+    padding: 50px 5%;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+
+  header h1 {
+    font-size: 18px;
+  }
+  body {
+  padding-top: 70px;
+}
+  nav a {
+    font-size: 12px;
+    margin: 5px;
+  }
+
+  .hero h2 {
+    font-size: 24px;
+  }
+
+  .slideshow {
+    height: 220px;
+  }
+
+  .popup-card {
+    width: 90%;
+  }
+}
+
+.cloud{
+  z-index:2;
+  pointer-events:none;
+}
+.stars span{
+  z-index:2;
+}
+.sparkle{
+  z-index:-1;
+}
+.sparkle{
+  z-index:2;
+  pointer-events:none;
+}
+/* ---------------- SCROLL ---------------- */
+html{
+  scroll-behavior:smooth;
+}
+</style>
+</head>
+
+<body>
+<!-- 🌟 LIVE SPARKLES (AUTO GENERATED) -->
+<div id="sparkleContainer"></div>
+
+<!-- 🌠 SHOOTING STAR -->
+<div class="shooting-star"></div>
+<!-- 🌟 SPARKLES -->
+<div class="stars">
+  <span style="left:10%;"></span>
+  <span style="left:30%;"></span>
+  <span style="left:50%;"></span>
+  <span style="left:70%;"></span>
+  <span style="left:90%;"></span>
+</div>
+
+<!-- CLOUDS -->
+<img class="cloud" src="https://pngimg.com/uploads/cloud/cloud_PNG24.png" style="top:100px;">
+<img class="cloud" src="https://pngimg.com/uploads/cloud/cloud_PNG24.png" style="top:200px; animation-delay:5s;">
+
+<!-- HEADER / NAVBAR -->
+<header>
+    <h1 style="display:flex;align-items:center;gap:10px;">
+        <img src="1000070806.jpg" alt="Lofty Logo" style="width:40px;height:40px;border-radius:50%;">
+        Lofty Trekking
+      </h1>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+    <a href="#location">Location</a>
+    <a href="#packages">Packages</a>
+    <button onclick="toggleTheme()">🌗</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h2>Explore Sky & Mountains</h2>
+    <button class="btn" onclick="playMusic()">Start Nature 🎵</button>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>About</h2>
+  <p>Adventure trekking, camping, river rafting & sky experiences.</p>
+  <br>
+What would it be like to see and experience what you dream about?
+<br>
+നാം വിചാരിക്കുന്നതിലും അപ്പുറമാണ് നാം കാണുന്ന ലോകം!
+<br>
+No matter how much you earn or how much you work, if you have one day to spare, call us.
+<br>
+                     What I experienced in my own life.
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <h2>Packages</h2>
+  <div class="cards">
+    <div class="card">🌄 Trekking</div>
+    <div class="card">🏕 Camping</div>
+    <div class="card">📸 Photography</div>
+    <div class="card">🌊 River Rafting</div>
+  </div>
+</section>
+
+<!-- SLIDESHOW (NEW ANIMATION) -->
+<section>
+  <h2>Our Featured Adventure</h2>
+
+  <div class="slideshow">
+    <div class="slide"><img src="1000070799.jpg"></div>
+    <div class="slide"><img src="1000070800.jpg"></div>
+    <div class="slide"><img src="1000070801.jpg"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <h2>📸 Gallery</h2>
+  <div class="gallery">
+    <img src="1000070796.jpg">
+    <img src="1000070797.jpg">
+    <img src="1000070798.jpg">
+    <img src="1000070799.jpg">
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>📞 Contact & Support</h2>
+
+  <div class="contact-hero">
+    <div class="contact" style="margin-top:20px;">
+
+      <div class="contact-box">
+        <h3>📱 Call / WhatsApp</h3>
+        <p>+91 9876543210</p>
+        <a href="https://wa.me/919876543210" target="_blank">Chat Now</a>
+      </div>
+
+      <div class="contact-box">
+        <h3>📸 Instagram</h3>
+        <p>Follow our adventure stories</p>
+        <a href="https://instagram.com" target="_blank">Open Instagram</a>
+      </div>
+
+      <div class="contact-box">
+        <h3>📧 Email</h3>
+        <p>loftytrekking@gmail.com</p>
+        <a href="#">Send Mail</a>
+      </div>
+
+      <div class="contact-box">
+        <h3>🌄 Emergency Support</h3>
+        <p>24/7 trekking assistance</p>
+        <a href="#">Call Support</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- POPUP MODAL -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-card">
+    <h2>🌄 Special Offer</h2>
+    <p>Book 2 trekking packages & get River Rafting FREE!</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
+<!-- LOCATION -->
+<section id="location">
+  <h2>📍 Location</h2>
+
+  <div class="box">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18..."
+      width="100%" height="250" style="border:0;border-radius:15px;">
+    </iframe>
+  </div>
+</section>
+
+<footer>
+  © 2026 Lofty Trekking
+</footer>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b6c5b.mp3">
+</audio>
+<script>
+
+    /* MUSIC */
+    function playMusic(){
+      document.getElementById("music").play();
+    }
+    
+    /* THEME */
+    function toggleTheme(){
+      document.body.classList.toggle("light");
+    }
+    
+    /* ---------------- SLIDESHOW FIXED ---------------- */
+    let slides = document.querySelectorAll(".slide");
+    let index = 0;
+    
+    function showSlide(){
+      slides.forEach((s, i) => {
+        s.style.opacity = "0";
+        s.style.zIndex = "0";
+      });
+    
+      slides[index].style.opacity = "1";
+      slides[index].style.zIndex = "1";
+    
+      index = (index + 1) % slides.length;
+    }
+    
+    /* show first slide immediately */
+    showSlide();
+    setInterval(showSlide, 3000);
+    
+    /* ---------------- SCROLL ANIMATION FIXED (ONLY ONCE) ---------------- */
+    const sections = document.querySelectorAll("section");
+    
+    window.addEventListener("scroll", () => {
+      sections.forEach(sec => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 400;
+    
+        if(top > offset){
+          sec.classList.add("show");
+        }
+      });
+    });
+/* ---------------- FULL SKY SPARKLES ---------------- */
+function createStars(){
+  const starCount = 120; // 🔥 many stars
+
+  for(let i=0;i<starCount;i++){
+    const s = document.createElement("div");
+    s.classList.add("sparkle");
+
+    // random position
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = Math.random() * 100 + "vh";
+
+    // random size
+    let size = Math.random() * 2 + 1;
+    s.style.width = size + "px";
+    s.style.height = size + "px";
+
+    // random animation delay
+    s.style.animationDelay = Math.random() * 5 + "s";
+
+    document.body.appendChild(s);
+  }
+}
+
+createStars();
+/* ---------------- POPUP SYSTEM ---------------- */
+function showPopup(){
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+/* auto show popup after 3 seconds */
+window.onload = () => {
+  setTimeout(showPopup, 3000);
+};
+    </script>
+
+</body>
+</html>
